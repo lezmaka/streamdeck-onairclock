@@ -409,6 +409,13 @@ function displayTime(canvas, jsn) {
             context.fillStyle = dotColor;
             context.fillText(padZero(h) + ":" + padZero(m), clockX, (clockY + 10));
         }
+        function drawArchaicTime() {
+            // draw time h:mm
+            context.font = "30px Verdana";
+            context.textAlign = "center";
+            context.fillStyle = dotColor;
+            context.fillText(formatHour(h) + ":" + padZero(m), clockX, (clockY + 10));
+        }
         function drawModernTime() {
             // draw time hh:mm
             context.font = "45px Verdana";
@@ -473,7 +480,8 @@ function displayTime(canvas, jsn) {
                 drawDotsActive()
                 drawDotsInactive()
                 drawScale()
-                drawClassicTime()
+                // drawClassicTime()
+                drawArchaicTime()
                 drawDate()
                 drawSeconds()
                 break;
@@ -481,21 +489,24 @@ function displayTime(canvas, jsn) {
                 drawDotsActive()
                 drawDotsInactive()
                 drawScale()
-                drawClassicTime()
+                // drawClassicTime()
+                drawArchaicTime()
                 drawSeconds()
                 break;
             case 2:
                 drawDotsActive()
                 drawDotsInactive()
                 drawScale()
-                drawClassicTime()
+                // drawClassicTime()
+                drawArchaicTime()
                 drawDate()
                 break;
             case 3:
                 drawDotsActive()
                 drawDotsInactive()
                 drawScale()
-                drawClassicTime()
+                // drawClassicTime()
+                drawArchaicTime()
                 break;
             case 4:
                 drawDotsActive()
@@ -507,7 +518,8 @@ function displayTime(canvas, jsn) {
                 drawDotsActive()
                 drawDotsInactive()
                 drawScale()
-                drawClassicTime()
+                // drawClassicTime()
+                drawArchaicTime()
                 drawDate()
                 drawSeconds()
               break;
