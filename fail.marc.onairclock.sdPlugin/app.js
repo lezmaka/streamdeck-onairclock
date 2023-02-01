@@ -199,6 +199,9 @@ function updateClock(jsn) {
         }
         //TODO build PI dropdown for date selection
         switch (jsn.payload.settings.dateType) {
+            case "m-dd":
+                currentElement.dateType = "m-dd"
+                break;
             case "mm-dd":
                 currentElement.dateType = "mm-dd"
                 break;
