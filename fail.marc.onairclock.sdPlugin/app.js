@@ -184,6 +184,7 @@ function updateClock(jsn) {
         // update settings
         currentElement = allElements.find(item => item.context === jsn.context)
 
+        currentElement.dateSeparator = jsn.payload.settings.dateSeparator;
         currentElement.dotColor = isHexColor(jsn.payload.settings.dotcolor) ? jsn.payload.settings.dotcolor : gDotColorDefault;
         currentElement.inactiveColor = isHexColor(jsn.payload.settings.inactivecolor) ? jsn.payload.settings.inactivecolor : gDotInactiveColorDefault;
         currentElement.backgroundColor = isHexColor(jsn.payload.settings.backgroundcolor) ? jsn.payload.settings.backgroundcolor : gBackgroundColorDefault;
@@ -234,6 +235,7 @@ function updateClock(jsn) {
 
         currentElement.context = jsn.context
         
+        currentElement.dateSeparator = jsn.payload.settings.dateSeparator;
         currentElement.dotColor = isHexColor(jsn.payload.settings.dotcolor) ? jsn.payload.settings.dotcolor : gDotColorDefault;
         currentElement.inactiveColor = isHexColor(jsn.payload.settings.inactivecolor) ? jsn.payload.settings.inactivecolor : gDotInactiveColorDefault;
         currentElement.backgroundColor = isHexColor(jsn.payload.settings.backgroundcolor) ? jsn.payload.settings.backgroundcolor : gBackgroundColorDefault;
@@ -333,7 +335,7 @@ function displayTime(canvas, jsn) {
     // Make sure TAU is defined (it's not by default)
     Math.TAU = 2 * Math.PI;
 
-    function drawScale(s, circleDiameter, dotThickness, dotInactiveThickness, dotColor, dotInactiveColor, backgroundColor, dateType) {
+    function drawScale(s, circleDiameter, dotThickness, dotInactiveThickness, dotColor, dotInactiveColor, backgroundColor, dateType, dateSeparator) {
         const dotGrid = 60
         const hourGrid = 12
         
@@ -451,27 +453,27 @@ function displayTime(canvas, jsn) {
                     break;
                 case "mm-dd":
                     context.font = "18px Verdana";
-                    context.fillText(padZero(month) + "-" + padZero(day), clockX, (clockY - 25));
+                    context.fillText(padZero(month) + dateSeparator + padZero(day), clockX, (clockY - 25));
                     break;
                 case "dd-mm":
                     context.font = "18px Verdana";
-                    context.fillText(padZero(day) + "-" + padZero(month), clockX, (clockY - 25));
+                    context.fillText(padZero(day) + dateSeparator + padZero(month), clockX, (clockY - 25));
                     break;
                 case "dd-mm-yy":
                     context.font = "16px Verdana";
-                    context.fillText(padZero(day) + "-" + padZero(month) + "-" + padZero(shortYear), clockX, (clockY - 25));
+                    context.fillText(padZero(day) + dateSeparator + padZero(month) + dateSeparator + padZero(shortYear), clockX, (clockY - 25));
                     break;
                 case "mm-dd-yy":
                     context.font = "16px Verdana";
-                    context.fillText(padZero(month) + "-" + padZero(day) + "-" + padZero(shortYear), clockX, (clockY - 25));
+                    context.fillText(padZero(month) + dateSeparator + padZero(day) + dateSeparator + padZero(shortYear), clockX, (clockY - 25));
                     break;
                 case "yy-mm-dd":
                     context.font = "16px Verdana";
-                    context.fillText(padZero(shortYear) + "-" + padZero(month) + "-" + padZero(day), clockX, (clockY - 25));
+                    context.fillText(padZero(shortYear) + dateSeparator + padZero(month) + dateSeparator + padZero(day), clockX, (clockY - 25));
                     break;
                 default:
                     context.font = "18px Verdana";
-                    context.fillText(padZero(day) + "-" + padZero(month), clockX, (clockY - 25));
+                    context.fillText(padZero(day) + dateSeparator + padZero(month), clockX, (clockY - 25));
                     break;
             }
 
@@ -482,7 +484,7 @@ function displayTime(canvas, jsn) {
             context.font = "30px Verdana";
             context.textAlign = "center";
             context.fillStyle = dotColor;
-            context.fillText(padZero(s), clockX, (clockY + 36));
+            context.fillText(padZero(s), clockX, (clockY + 42));
         }
 
 
@@ -545,7 +547,7 @@ function displayTime(canvas, jsn) {
 
     }
     // drawScale(s, circleDiameter, dotThickness, dotInactiveThickness, dotColor, dotInactiveColor) 
-    drawScale(s, 0.8, 2.2, 1.4, currentElement.dotColor, currentElement.inactiveColor, currentElement.backgroundColor, currentElement.dateType)
+    drawScale(s, 0.8, 2.2, 1.4, currentElement.dotColor, currentElement.inactiveColor, currentElement.backgroundColor, currentElement.dateType, currentElement.dateSeparator)
 
 
     function padZero(num) {
