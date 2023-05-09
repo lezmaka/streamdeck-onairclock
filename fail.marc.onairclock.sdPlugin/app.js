@@ -199,6 +199,12 @@ function updateClock(jsn) {
         }
         //TODO build PI dropdown for date selection
         switch (jsn.payload.settings.dateType) {
+            case "m-d":
+                currentElement.dateType = "m-d"
+                break;
+            case "m-dd":
+                currentElement.dateType = "m-dd"
+                break;
             case "mm-dd":
                 currentElement.dateType = "mm-dd"
                 break;
@@ -406,6 +412,13 @@ function displayTime(canvas, jsn) {
             context.fillStyle = dotColor;
             context.fillText(padZero(h) + ":" + padZero(m), clockX, (clockY + 10));
         }
+        function drawArchaicTime() {
+            // draw time h:mm
+            context.font = "30px Verdana";
+            context.textAlign = "center";
+            context.fillStyle = dotColor;
+            context.fillText(formatHour(h) + ":" + padZero(m), clockX, (clockY + 10));
+        }
         function drawModernTime() {
             // draw time hh:mm
             context.font = "45px Verdana";
@@ -414,7 +427,7 @@ function displayTime(canvas, jsn) {
             context.fillText(padZero(h), clockX, (clockY - 10));
             context.fillText(padZero(m), clockX, (clockY + 30));
 
-            context.font = "22px Verdana";
+            context.font = "30px Verdana";
             context.fillText(padZero(s), clockX, (clockY + 51));
 
         }
@@ -428,6 +441,14 @@ function displayTime(canvas, jsn) {
             let shortYear = year.toString().substr(-2)
 
             switch(dateType) {
+                case "m-d":
+                    context.font = "22px Verdana";
+                    context.fillText(month + "-" + day, clockX, (clockY - 25));
+                    break;
+                case "m-dd":
+                    context.font = "22px Verdana";
+                    context.fillText(month + "-" + padZero(day), clockX, (clockY - 25));
+                    break;
                 case "mm-dd":
                     context.font = "18px Verdana";
                     context.fillText(padZero(month) + "-" + padZero(day), clockX, (clockY - 25));
@@ -458,7 +479,7 @@ function displayTime(canvas, jsn) {
 
         function drawSeconds() {
             // draw seconds in second line
-            context.font = "22px Verdana";
+            context.font = "30px Verdana";
             context.textAlign = "center";
             context.fillStyle = dotColor;
             context.fillText(padZero(s), clockX, (clockY + 36));
@@ -470,7 +491,8 @@ function displayTime(canvas, jsn) {
                 drawDotsActive()
                 drawDotsInactive()
                 drawScale()
-                drawClassicTime()
+                // drawClassicTime()
+                drawArchaicTime()
                 drawDate()
                 drawSeconds()
                 break;
@@ -478,21 +500,24 @@ function displayTime(canvas, jsn) {
                 drawDotsActive()
                 drawDotsInactive()
                 drawScale()
-                drawClassicTime()
+                // drawClassicTime()
+                drawArchaicTime()
                 drawSeconds()
                 break;
             case 2:
                 drawDotsActive()
                 drawDotsInactive()
                 drawScale()
-                drawClassicTime()
+                // drawClassicTime()
+                drawArchaicTime()
                 drawDate()
                 break;
             case 3:
                 drawDotsActive()
                 drawDotsInactive()
                 drawScale()
-                drawClassicTime()
+                // drawClassicTime()
+                drawArchaicTime()
                 break;
             case 4:
                 drawDotsActive()
@@ -504,7 +529,8 @@ function displayTime(canvas, jsn) {
                 drawDotsActive()
                 drawDotsInactive()
                 drawScale()
-                drawClassicTime()
+                // drawClassicTime()
+                drawArchaicTime()
                 drawDate()
                 drawSeconds()
               break;
